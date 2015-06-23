@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * This is some PHP for Drupal that I have written to embed one(randomly) of the user's twitch streams.
+ *
+ * This script gets all available Twitch account name from the custom user profile field (field_twitch_channel). 
+ * If any of those accounts are live, it will randomly select one to embed.
+ * If no user streams are live, it will embed twitch.tv/twitch.
+ *
+ * @author     Thomas "Twamp" Wright <twamp@3xa-gaming.net>
+ */
+ 
 $users = entity_load('user');
 $usernames = array();
 foreach($users as $id => $user){
@@ -23,12 +33,10 @@ if (is_array($inc)) {
 } else {
 	$rChannel = 'twitch';
 	$tEmbedVideo = '<div class="one_three"><div class="blockquote">No Live Twitch Channels! Showing <a href="http://twitch.tv/twitch">Twitch.tv/Twitch</a> Channel.</div><iframe src="http://www.twitch.tv/' . $rChannel . '/embed" frameborder="0" scrolling="no" height="180" width="300"></iframe>';
-	#$tEmbedFooter = '<div class="accordion"><h3 class="accordion-title">Channel info...</h3><div class="accordion-content">Some content....</div><h3 class="accordion-title">Title Two</h3><div class="accordion-content">Some content....</div></div>';
-	#$tEmbedFull = $tEmbedVideo . $tEmbedFooter;
 	$tEmbedFull = $tEmbedVideo;
 }
 	print($tEmbedFull);
-function checkStreamStatus($tChan) {#Allows array, returns array
+function checkStreamStatus($tChan) {
 	global $livechannels;
 	If (is_array($tChan)) {
 		foreach($tChan as $cChan) {
