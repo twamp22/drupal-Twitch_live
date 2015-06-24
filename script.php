@@ -9,7 +9,7 @@
  *
  * @author     Thomas "Twamp" Wright <twamp@3xa-gaming.net>
  */
- 
+
 $users = entity_load('user');
 $usernames = array();
 foreach($users as $id => $user){
@@ -28,14 +28,18 @@ if (is_array($inc)) {
 	$rNumber = count($inc) - 1;
 	$rChannel = $inc[rand(0,$rNumber)];
 	$tEmbedVideo = '<div class="one_three"><iframe src="http://www.twitch.tv/' . $rChannel . '/embed" frameborder="0" scrolling="no" height="100%" width="100%"></iframe>';
-	$tEmbedFooter = '<div class="two_three"><div class="action-box-dark">Live Twitch Channel: <a class="button" href="http://www.twitch.tv/' . ucfirst($rChannel) . '">' . ucfirst($rChannel) . '</a></div></div></div>';
+	$tEmbedFooter = '<div class="two_three"><div class="action-box-dark">Live Twitch Channel: <a class="button" href="http://www.twitch.tv/' . $rChannel . '">' . ucfirst($rChannel) . '</a></div></div></div>';
 	$tEmbedFull = $tEmbedVideo . $tEmbedFooter;
 } else {
-	$rChannel = 'twitch';
-	$tEmbedVideo = '<div class="one_three"><div class="blockquote">No Live Twitch Channels! Showing <a href="http://twitch.tv/twitch">Twitch.tv/Twitch</a> Channel.</div><iframe src="http://www.twitch.tv/' . $rChannel . '/embed" frameborder="0" scrolling="no" height="180" width="300"></iframe>';
+	$topTwitch = array('sodapoppin','trumpsc','kittyplaysgames','maximusblack','lirik','sing_sing','walshy','itshafu','lethalfrag','dansgaming','phantoml0rd','manvsgame','towelliee','summit1g','wowhobbs','totalbiscuit','teamsp00ky','syndicate','bacon_donut','ms_vixen','trick2g','defrancogames','seriousgaming','streamerhouse','captainsparklez');
+	$cev = checkStreamStatus($topTwitch);
+	$rNumber = count($cev) - 1;
+	$rChannel = $cev[rand(0,$rNumber)];
+	$tEmbedVideo = '<div class="one_three"><div class="blockquote">No Live Twitch Channels! Showing <a href="http://twitch.tv/' . $rChannel . '">Twitch.tv/' . ucfirst($rChannel) . '</a> Channel.</div><iframe src="http://www.twitch.tv/' . $rChannel . '/embed" frameborder="0" scrolling="no" height="180" width="300"></iframe>';
 	$tEmbedFull = $tEmbedVideo;
 }
 	print($tEmbedFull);
+
 function checkStreamStatus($tChan) {
 	global $livechannels;
 	If (is_array($tChan)) {
@@ -61,5 +65,4 @@ function checkStreamStatus($tChan) {
 		return $tChan;
 	}
 }
-
 ?>
