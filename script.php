@@ -41,8 +41,7 @@ if (is_array($inc)) {
 	print($tEmbedFull);
 
 function checkStreamStatus($tChan) {
-	global $livechannels;
-	If (is_array($tChan)) {
+	if (is_array($tChan)) {
 		foreach($tChan as $cChan) {
 			$streamArray = json_decode(@file_get_contents('https://api.twitch.tv/kraken/streams?channel=' . $cChan), true);
 			foreach ($streamArray['streams'] as $stream) {
