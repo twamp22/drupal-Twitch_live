@@ -44,24 +44,16 @@ function checkStreamStatus($tChan) {
 	if (is_array($tChan)) {
 		foreach($tChan as $cChan) {
 			$streamArray = json_decode(@file_get_contents('https://api.twitch.tv/kraken/streams?channel=' . $cChan), true);
+			$livechannels = array();
 			foreach ($streamArray['streams'] as $stream) {
 				if($stream['_id'] != null){
 					$name = $stream['channel']['name'];
 					$tChan = $name;
-					if (!isset($livechannels)) {
-						$livechannels = array();
-					}
 					array_push($livechannels, $name);
-				} else {
-					$tChan = $stream . " OFFLINE<br>";
-					$livechannels = 0;
 				}
 			}
 		}
 		return $livechannels;
-	} else {
-		$tChan = null;
-		return $tChan;
 	}
 }
 ?>
