@@ -26,17 +26,21 @@ $inc = checkStreamStatus($channels);
 if (is_array($inc)) {
 	$rNumber = count($inc) - 1;
 	$rChannel = $inc[rand(0,$rNumber)];
-	$tEmbedVideo = '<center><iframe src="http://www.twitch.tv/' . $rChannel . '/embed" frameborder="0" scrolling="no" height="100%" width="100%"></iframe><br>';
+	$tEmbedVideo = '<center><iframe src="http://www.twitch.tv/' . $rChannel . '/embed" frameborder="0" scrolling="no" height="468" width="778"></iframe><br>';
 	$tEmbedFooter = 'Live Twitch Channel: <a class="button" href="http://www.twitch.tv/' . $rChannel . '">' . ucfirst($rChannel) . '</a></center>';
 	$tEmbedFull = $tEmbedVideo . $tEmbedFooter;
-} else {
 	$topTwitch = array('sodapoppin','trumpsc','kittyplaysgames','maximusblack','lirik','sing_sing','walshy','itshafu','lethalfrag','dansgaming','phantoml0rd','manvsgame','towelliee','summit1g','wowhobbs','totalbiscuit','teamsp00ky','syndicate','bacon_donut','ms_vixen','trick2g','defrancogames','seriousgaming','streamerhouse','captainsparklez');
+} else {
 	$cev = checkStreamStatus($topTwitch);
-	$rNumber = count($cev) - 1;
-	$rChannel = $cev[rand(0,$rNumber)];
-	$tEmbedVideo = '<center><iframe src="http://www.twitch.tv/' . $rChannel . '/embed" frameborder="0" scrolling="no" height="378" width="620"></iframe><br>';
-	$tEmbedFooter = 'No registered live channels!<br>Streaming <a class="button" href="http://www.twitch.tv/' . $rChannel . '">' . ucfirst($rChannel) . '</a></center>';
-	$tEmbedFull = $tEmbedVideo . $tEmbedFooter;
+	if ($cev == NULL) {
+		$tEmbedFull = '<div class="alert-error"><center>No users that we know are live right now!<div class="delete-button"></div></center></div><center><font color="#d33b3c">Normally you would see an embedded Twitch.tv live stream here, but none of the users registered here are live streaming right now! We show the top 25 Twitch streamers when our users are not live, but none of those channels are live right now either!</font><br><br>We are always looking for more members and guests for our site and community! If you would like your stream to be shown on this page when you go live, all you have to do is register! If you are interesting in joining 3xA-Gaming we are always accepting applications! If you would like to learn more about us just click "About 3xA-Gaming" above!</center>';
+	} else {
+		$rNumber = count($cev) - 1;
+		$rChannel = $cev[rand(0,$rNumber)];
+		$tEmbedVideo = '<center><iframe src="http://www.twitch.tv/' . $rChannel . '/embed" frameborder="0" scrolling="no" height="468" width="778"></iframe>';
+		$tEmbedFooter = '<div class="alert-warning">No users that we know are live right now!</div><a class="button" href="http://www.twitch.tv/' . $rChannel . '">' . ucfirst($rChannel) . '</a> is live however!</center>';
+		$tEmbedFull = $tEmbedVideo . $tEmbedFooter;
+	}
 }
 print($tEmbedFull);
 
